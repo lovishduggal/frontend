@@ -38,7 +38,6 @@ function More() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    // checked={mode === 'light' ? false : true}
     return (
         <Box sx={{ position: 'absolute', right: 0, top: 12 }}>
             <Button

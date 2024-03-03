@@ -130,7 +130,6 @@ function EditProfileDialog({
         formData.append('bio', data.bio);
         formData.append('website', data.website);
         formData.append('interests', data.interests);
-
         const { payload } = await dispatch(updateUserProfile(formData));
         if (payload.success) {
             dispatch(getAllPost());
@@ -330,6 +329,7 @@ function Profile() {
         setValue('interests', user?.interests);
         setOpen(true);
     };
+    
     const handleClose = () => {
         setOpen(false);
     };

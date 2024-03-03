@@ -51,12 +51,11 @@ function CreatePost() {
             setPreviewImage(reader.result);
         };
     }
+
     async function onSubmit(data) {
         const formData = new FormData();
-
         formData.append('image', data?.image[0]);
         formData.append('content', data?.caption);
-
         const { payload } = await dispatch(uploadPost(formData));
         if (payload?.success) {
             navigate('/');

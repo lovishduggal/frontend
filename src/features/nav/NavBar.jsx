@@ -68,6 +68,7 @@ function LeftDrawer() {
         location.pathname === '/' ? 'home' : location.pathname.slice(1)
     );
     const user = useSelector(selectUser);
+    
     const handleListItemClick = (event, newValue) => {
         setValue(newValue);
     };
@@ -243,12 +244,12 @@ function LeftDrawer() {
 
 function BottomNav() {
     const location = useLocation();
-
+    const user = useSelector(selectUser);
     const [value, setValue] = useState(
         location.pathname === '/' ? 'home' : location.pathname.slice(1)
     );
+
     const handleChange = (event, newValue) => {
-        console.log(event, newValue);
         setValue(newValue);
     };
     return (
@@ -330,15 +331,19 @@ function BottomNav() {
                         label="Notification"
                         value="notifications"
                         icon={
-                            <Notifications
-                                sx={{
-                                    color: `${
-                                        value === 'notifications'
-                                            ? 'primary'
-                                            : 'text.primary'
-                                    }`,
-                                }}
-                            />
+                            <Badge
+                                color="secondary"
+                                badgeContent={user?.notifications?.length}>
+                                <Notifications
+                                    sx={{
+                                        color: `${
+                                            value === 'notifications'
+                                                ? 'primary'
+                                                : 'text.primary'
+                                        }`,
+                                    }}
+                                />
+                            </Badge>
                         }
                     />
 

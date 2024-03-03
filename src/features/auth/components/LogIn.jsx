@@ -84,11 +84,6 @@ function LogIn() {
                                             autoComplete="email"
                                             {...register('email', {
                                                 required: 'Email is required',
-                                                pattern: {
-                                                    value: /^\S+@\S+\.\S+$/,
-                                                    message:
-                                                        'Email address is not valid',
-                                                },
                                             })}
                                             error={
                                                 errors?.email?.message
@@ -104,11 +99,6 @@ function LogIn() {
                                             {...register('password', {
                                                 required:
                                                     'Password is required',
-                                                pattern: {
-                                                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/,
-                                                    message:
-                                                        'Minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character',
-                                                },
                                             })}
                                             error={
                                                 errors?.password?.message
@@ -134,12 +124,12 @@ function LogIn() {
                                 </Button>
                                 <Grid container>
                                     <Grid item xs>
-                                        <Link
+                                        {/* <Link   I will implement this in future..
                                             id="router-link"
                                             to="/forgot-password"
                                             variant="body2">
                                             Forgot password?
-                                        </Link>
+                                        </Link> */}
                                     </Grid>
                                     <Grid item>
                                         <Link

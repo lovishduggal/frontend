@@ -70,14 +70,12 @@ function SignUp() {
                                 fontFamily={'Dancing Script'}>
                                 Pictogram
                             </Typography>
-
                             <Typography
                                 component="h4"
                                 variant="subtitle1"
                                 fontWeight={'500'}
                                 textAlign={'center'}>
-                                Sign up to see photos and videos <br /> from
-                                your friends.
+                                Sign up to see photos <br /> from your friends.
                             </Typography>
                             <Box
                                 component="form"

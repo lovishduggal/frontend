@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     getUserNotifications,
     getUserProfile,
+    selectNotificationStatus,
     selectUserNotifications,
-    selectUserStatus,
     setOtherUser,
 } from '../userSlice';
 import { selectUserId } from '../../auth/authSlice';
@@ -21,7 +21,7 @@ import { Link as RouterLink } from 'react-router-dom';
 function Notification() {
     const dispatch = useDispatch();
     const userId = useSelector(selectUserId);
-    const userStatus = useSelector(selectUserStatus);
+    const notificationStatus = useSelector(selectNotificationStatus);
     const userNotifications = useSelector(selectUserNotifications);
     useEffect(() => {
         if (userId) {
@@ -33,9 +33,11 @@ function Notification() {
         }
     }, []);
     return (
-        <Stack alignItems={'center'} sx={{ width: 1, height: 'calc(100vh - 64px)' }}>
+        <Stack
+            alignItems={'center'}
+            sx={{ width: 1, height: 'calc(100vh - 64px)' }}>
             <Stack>
-                {userStatus === 'loading' ? (
+                {notificationStatus === 'loading' ? (
                     <>
                         <Toolbar />
                         <CircularProgress variant="indeterminate" />
@@ -82,11 +84,9 @@ function Notification() {
                         </Link>
                     ))
                 ) : (
-                    <>
-                        <Typography>
-                            You don&#39;t have any notifications
-                        </Typography>
-                    </>
+                    <Typography>
+                        You don&#39;t have any notifications
+                    </Typography>
                 )}
             </Stack>
         </Stack>

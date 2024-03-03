@@ -7,6 +7,7 @@ const initialState = {
     user: null,
     otherUser: null,
     notifications: [],
+    notificationStatus: 'idle',
     status: 'idle',
 };
 
@@ -118,10 +119,10 @@ const userSlice = createSlice({
                 state.user = action?.payload?.user;
             })
             .addCase(getUserNotifications.pending, (state) => {
-                state.status = 'loading';
+                state.notificationStatus = 'loading';
             })
             .addCase(getUserNotifications.fulfilled, (state, action) => {
-                state.status = 'idle';
+                state.notificationStatus = 'idle';
                 state.notifications = action.payload.notifications;
             })
             .addCase(updateUserProfile.fulfilled, (state, action) => {
@@ -137,6 +138,8 @@ export const selectMode = (state) => state.user.mode;
 export const selectUser = (state) => state.user.user;
 export const selectOtherUser = (state) => state.user.otherUser;
 export const selectUserStatus = (state) => state.user.status;
+export const selectNotificationStatus = (state) =>
+    state.user.notificationStatus;
 export const selectUserNotifications = (state) => state.user.notifications;
 export const { setMode, setOtherUser } = userSlice.actions;
 export default userSlice.reducer;

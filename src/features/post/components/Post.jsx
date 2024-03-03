@@ -65,6 +65,7 @@ function MenuLong({
     const dispatch = useDispatch();
     const open = Boolean(anchorEl);
     const userId = useSelector(selectUserId);
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -207,8 +208,8 @@ function ListOfComments({
     async function handleDelete(commentId) {
         await dispatch(deleteComment({ postId, commentId }));
         dispatch(getAllPost());
-
         const { payload } = await dispatch(getUserProfile({ userId }));
+
         if (userProfileView && payload?.success) {
             const { user } = payload;
             setModalData(search(postId, user.posts));
@@ -369,8 +370,8 @@ function Post({
         if (e.target.checked) await dispatch(likePost({ postId }));
         else await dispatch(unLikePost({ postId }));
         dispatch(getAllPost());
-
         const { payload } = await dispatch(getUserProfile({ userId }));
+
         if (userProfileView && payload?.success) {
             const { user } = payload;
             setModalData(search(postId, user.posts));
@@ -382,6 +383,7 @@ function Post({
                     otherUserId: data?.user?._id,
                 })
             );
+
             if (payload?.success) {
                 const { user } = payload;
                 setModalData(search(postId, user.posts));
@@ -395,8 +397,7 @@ function Post({
         reset();
     }
 
-    function onCancel(data) {
-        console.log('oncancel', data);
+    function onCancel() {
         setIsEditing(false);
         reset();
     }
@@ -405,13 +406,12 @@ function Post({
         const { addComment, caption } = formData;
 
         if (addComment) {
-            console.log('comment', formData);
             await dispatch(
                 createComment({ content: formData.addComment, postId })
             );
             dispatch(getAllPost());
-
             const { payload } = await dispatch(getUserProfile({ userId }));
+
             if (userProfileView && payload?.success) {
                 const { user } = payload;
                 setModalData(search(postId, user.posts));
@@ -423,6 +423,7 @@ function Post({
                         otherUserId: data?.user?._id,
                     })
                 );
+
                 if (payload?.success) {
                     const { user } = payload;
                     setModalData(search(postId, user.posts));
@@ -431,7 +432,6 @@ function Post({
             setOpenCommentDialog(false);
             reset();
         } else if (caption) {
-            console.log('caption', formData.caption);
             await dispatch(updatePost({ content: formData.caption, postId }));
             dispatch(getAllPost());
             const { payload } = await dispatch(getUserProfile({ userId }));
@@ -501,7 +501,6 @@ function Post({
                     </Typography>
                 }
             />
-
             <CardMedia
                 width="400px"
                 component="img"
@@ -510,7 +509,6 @@ function Post({
                 alt={data?.user?.name}
                 loading="lazy"
             />
-
             <CardContent>
                 {isEditing ? (
                     <>
@@ -555,7 +553,6 @@ function Post({
                     </Typography>
                 )}
             </CardContent>
-
             <CardActions
                 sx={{ flexDirection: 'column', alignItems: 'flex-start' }}>
                 <Stack flexDirection={'row'} alignItems={'center'}>

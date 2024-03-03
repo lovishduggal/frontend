@@ -28,9 +28,11 @@ import ViewPhoto from '../../../common/ViewPhoto';
 function ImagesList({ otherUser }) {
     const [open, setOpen] = useState(false);
     const [modalData, setModalData] = useState(null);
+
     const handleClickOpen = () => {
         setOpen(true);
     };
+    
     const handleClose = () => {
         setOpen(false);
     };
@@ -69,10 +71,8 @@ function OtherUserProfile() {
     const otherUserId = useParams().id;
     const otherUser = useSelector(selectOtherUser);
     const loggedInUserId = useSelector(selectUserId);
-    console.log(otherUserId);
 
     async function handleFollow(e) {
-        console.log('Handle follow API here', e.currentTarget.dataset.myValue);
         if (e.currentTarget.dataset.myValue === 'follow')
             await dispatch(follow({ otherUserId }));
         else await dispatch(unFollow({ otherUserId }));

@@ -107,7 +107,6 @@ function App() {
         if (isLoggedIn && userId) {
             dispatch(getAllPost());
             dispatch(getUserProfile({ userId }));
-            console.log('hii');
         }
     }, [isLoggedIn, dispatch, userId]);
 

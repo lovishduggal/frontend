@@ -3,7 +3,6 @@ import toast from 'react-hot-toast';
 import axiosInstance from '../../app/utils/axiosInstance';
 const initialState = {
     isLoggedIn: null,
-    jwt: null,
     userId: null,
 };
 
@@ -43,16 +42,8 @@ export const checkLoggedIn = createAsyncThunk(
     'auth/checkLoggedIn',
     async () => {
         try {
-            const response = axiosInstance.get('/auth/check');
-            toast.promise(response, {
-                success:(response) => {
-                    return response?.data?.message;
-                },
-                error: (error) => {
-                    return error.response?.data?.message;
-                },
-            });
-            return (await response).data;
+            const response = await axiosInstance.get('/auth/check');
+            return response.data;
         } catch (error) {
             return error.response.data;
         }
@@ -83,24 +74,23 @@ const authSlice = createSlice({
         builder
             .addCase(login.fulfilled, (state, action) => {
                 state.isLoggedIn = action?.payload?.success;
-                state.jwt = action?.payload?.jwt;
                 state.userId = action?.payload?.userId;
             })
             .addCase(logout.fulfilled, (state) => {
                 state.isLoggedIn = null;
                 state.userId = null;
-                state.jwt = null;
             })
             .addCase(checkLoggedIn.fulfilled, (state, action) => {
+                if (action?.payload?.success === false) {
+                    toast.error(action?.payload?.message);
+                }
                 state.isLoggedIn = action?.payload?.success;
-                state.jwt = action?.payload?.jwt;
                 state.userId = action?.payload?.userId;
             });
     },
 });
 
 export const selectLoggedInUser = (state) => state.auth.isLoggedIn;
-export const selectJwt = (state) => state.auth.jwt;
 export const selectUserId = (state) => state.auth.userId;
 export const { setUser } = authSlice.actions;
 export default authSlice.reducer;

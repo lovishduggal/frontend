@@ -84,7 +84,6 @@ const postSlice = createSlice({
                 state.posts.unshift(action.payload.newPost);
             })
             .addCase(updatePost.fulfilled, (state, action) => {
-                console.log(action);
                 const index = state.posts.findIndex(
                     (post) => post._id === action.payload.updatedPost._id
                 );
