@@ -114,7 +114,7 @@ function EditProfileDialog({
             setPreviewImage(reader.result);
         };
     }
-
+    
     async function onSubmit(data) {
         const formData = new FormData();
         formData.append('image', data.image[0]);

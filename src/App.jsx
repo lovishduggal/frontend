@@ -18,15 +18,14 @@ import CssBaseline from '@mui/material/CssBaseline';
 import ProfilePage from './pages/ProfilePage.jsx';
 import NotificationPage from './pages/NotificationPage.jsx';
 import SearchPage from './pages/SearchPage.jsx';
-import { Box, CircularProgress, createTheme } from '@mui/material';
+import { Box, createTheme } from '@mui/material';
 import {
     getUserProfile,
     selectMode,
-    selectUser,
     setMode,
 } from './features/user/userSlice.js';
 import CreatePostPage from './pages/CreatePostPage.jsx';
-import { getAllPost, selectPosts } from './features/post/postSlice.js';
+import { getAllPost } from './features/post/postSlice.js';
 import OtherUserProfilePage from './pages/OtherUserProfilePage.jsx';
 
 const router = createBrowserRouter([
@@ -95,8 +94,6 @@ function App() {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(selectLoggedInUser);
     const userId = useSelector(selectUserId);
-    const user = useSelector(selectUser);
-    const posts = useSelector(selectPosts);
 
     useEffect(() => {
         const mode = localStorage.getItem('mode');
@@ -118,19 +115,7 @@ function App() {
             <ThemeProvider theme={theme}>
                 <Box bgcolor={'background.default'} color={'text.primary'}>
                     <CssBaseline />
-                    {posts && user ? (
-                        <RouterProvider router={router} />
-                    ) : (
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                height: '100vh',
-                            }}>
-                            <CircularProgress />
-                        </Box>
-                    )}
+                    <RouterProvider router={router} />
                     <Toaster />
                 </Box>
             </ThemeProvider>
