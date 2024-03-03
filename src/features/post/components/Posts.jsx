@@ -1,12 +1,13 @@
 import { Stack, Typography } from '@mui/material';
 import Post from './Post';
 import { useSelector } from 'react-redux';
-import { selectPosts } from '../postSlice';
+import { selectPostStatus, selectPosts } from '../postSlice';
 import { selectUserId } from '../../auth/authSlice';
 
 function Posts() {
     const posts = useSelector(selectPosts);
     const loggedInUserId = useSelector(selectUserId);
+    const postStatus = useSelector(selectPostStatus);
 
     function search(loggedInUserId, arrOfObjsLikes) {
         for (let i = 0; i < arrOfObjsLikes.length; i++) {
@@ -30,7 +31,7 @@ function Posts() {
                             post.likes
                         )}></Post>
                 ))
-            ) : (
+            ) : postStatus === 'loading' ? null : (
                 <Typography sx={{ textAlign: 'center' }}>No Feed</Typography>
             )}
         </Stack>
